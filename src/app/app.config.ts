@@ -1,12 +1,17 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-
-import { routes } from './app.routes';
+import { ApplicationConfig } from '@angular/core';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { Home } from './home/home';
+import { YoutubeDownloader } from './youtube-downloader/youtube-downloader';
+import { FileConverter } from './file-converter/file-converter';
+import { PdfTools } from './pdf-tools/pdf-tools';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes)
+    provideRouter([
+      { path: '', component: Home },
+      { path: 'youtube-downloader', component: YoutubeDownloader },
+      { path: 'file-converter', component: FileConverter },
+      { path: 'pdf-tools', component: PdfTools }
+    ], withComponentInputBinding())
   ]
 };
