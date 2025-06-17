@@ -1,1 +1,19 @@
-<p>youtube-downloader works!</p>
+<div class="container">
+  <h2>YouTube Downloader (Advanced)</h2>
+  <input type="text" [(ngModel)]="youtubeUrl" placeholder="Enter YouTube URL" class="form-control" />
+  <button class="btn btn-primary mt-2" (click)="fetchInfo()">Get Info</button>
+
+  <div *ngIf="info">
+    <h4 class="mt-3">{{ info.title }}</h4>
+    <img [src]="info.thumbnail" alt="thumbnail" style="max-width: 200px;"/>
+    <div class="mt-2">
+      <label>Select Format:</label>
+      <select class="form-select" [(ngModel)]="selectedFormat">
+        <option *ngFor="let f of info.formats" [value]="f.format_id">
+          {{ f.format_note || f.ext || f.format_id }} ({{ f.resolution || f.quality || '' }}) {{ f.filesize ? (f.filesize / 1024 / 1024).toFixed(2) + 'MB' : '' }}
+        </option>
+      </select>
+      <button class="btn btn-success mt-2" (click)="download()">Download</button>
+    </div>
+  </div>
+</div>
