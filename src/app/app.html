@@ -1,126 +1,171 @@
 <header class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
-    <a class="navbar-brand text-white fw-bold" href="#">YTube</a>
+    <a class="navbar-brand text-white fw-bold" href="#">FlexiKit</a>
+    <!--
     <div class="navbar-nav">
       <a class="nav-link text-white" href="#">Home</a>
       <a class="nav-link text-white" href="#">About</a>
       <a class="nav-link text-white" href="#">Contact</a>
       <a class="nav-link text-white" href="#faqs">FAQ</a>
     </div>
+    -->
   </div>
 </header>
-<div class="container mt-5 text-center">
-  <h1 class="mb-3">Download, Convert, and Manage Your Media Effortlessly</h1>
-  <p class="mb-5" style="color: #ffffff; font-style: italic;">Experience seamless video downloads, file conversions, and PDF management in one platform.</p>
-  <div class="row justify-content-center">
-    <div class="col-md-4 mb-4" (click)="selectTool('youtube')" [ngClass]="{'selected': selectedTool === 'youtube'}">
-      <div class="card text-white">
-        <div class="card-body p-4">
-          <i class="fab fa-youtube fa-3x mb-3" style="color: #e74c3c;"></i>
-          <h5 class="card-title">YouTube Downloader</h5>
-          <p class="card-text">Click to activate, then paste your YouTube link below.</p>
-          <a routerLink="/youtube-downloader" class="btn btn-primary">Go</a>
-        </div>
+
+
+<div class="container mt-5 text-center ">
+  <h1 class="mb-3">Download Videos, Convert Files, and Work with PDFs — All in One Place.</h1>
+  <p class="mb-5" style="color: #ffffff; font-style: italic;">Paste a link, upload a file, or pick a tool below.</p>
+  <div class="c-con">
+    <div class="row justify-content-center c-container">
+      <div class="col-md-4 mb-4" (click)="selectTool('youtube')" [ngClass]="{'selected': selectedTool === 'youtube'}">
+        <a routerLink="/youtube-downloader" >
+          <div class="card text-white">
+            <div class="card-body p-4">
+              <div class=" anything">
+                <i class="fab fa-youtube fa-3x mb-3" style="color: #e74c3c;"></i>
+                <h5 class="card-title">YouTube<br>Downloader</h5>
+              </div>
+              <p class="card-text">Click to activate, then paste your YouTube link below to download.</p>
+            </div>
+          </div> 
+        </a>
+      </div>
+      <div class="col-md-4 mb-4" (click)="selectTool('converter')" [ngClass]="{'selected': selectedTool === 'converter'}">
+        <a routerLink="/file-converter" >
+          <div class="card text-white">
+            <div class="card-body p-4">
+              <div class="anything">
+                <i class="fas fa-recycle fa-3x mb-3" style="color: #27ae60;"></i>
+                <h5 class="card-title">File<br>Converter</h5>
+              </div>
+              <p class="card-text">Click to upload your file, then choose the format you want to convert to.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 mb-4" (click)="selectTool('pdf')" [ngClass]="{'selected': selectedTool === 'pdf'}">
+        <a routerLink="/pdf-tools" class="">
+          <div class="card text-white">
+            <div class="card-body p-4">
+              <div class="anything">
+                <i class="far fa-file-pdf fa-3x mb-3" style="color: #e74c3c;"></i>
+                <h5 class="card-title">PDF<br>Tools</h5>
+              </div>
+              <p class="card-text">Click to select your PDF, then choose what action you want to perform.</p>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
-    <div class="col-md-4 mb-4" (click)="selectTool('converter')" [ngClass]="{'selected': selectedTool === 'converter'}">
-      <div class="card text-white">
-        <div class="card-body p-4">
-          <i class="fas fa-recycle fa-3x mb-3" style="color: #27ae60;"></i>
-          <h5 class="card-title">File Converter</h5>
-          <p class="card-text">Click to upload your file, then choose the format.</p>
-          <a routerLink="/file-converter" class="btn btn-success">Go</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-4" (click)="selectTool('pdf')" [ngClass]="{'selected': selectedTool === 'pdf'}">
-      <div class="card text-white">
-        <div class="card-body p-4">
-          <i class="far fa-file-pdf fa-3x mb-3" style="color: #e74c3c;"></i>
-          <h5 class="card-title">PDF Tools</h5>
-          <p class="card-text">Click to select a PDF, then choose an action.</p>
-          <a routerLink="/pdf-tools" class="btn btn-danger">Go</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="mt-4 w-50 mx-auto">
-    <p class="text-white">Paste a link, upload a file, or pick a tool below.</p>
   </div>
   <div class="mt-4 w-50 mx-auto" *ngIf="selectedTool">
     <div *ngIf="selectedTool === 'youtube'" class="input-group">
-      <input type="text" class="form-control" placeholder="Paste YouTube link here" aria-label="Paste YouTube link here" [(ngModel)]="youtubeLink" (keyup.enter)="onSubmitLink($event)">
-      <button class="btn btn-outline-primary" type="button" (click)="onSubmitLink($event)">→</button>
+      <input type="text" class="form-controls" placeholder="Paste YouTube link here" aria-label="Paste YouTube link here" [(ngModel)]="youtubeLink" (keyup.enter)="onSubmitLink($event)">
+      <button class="btn" type="button" (click)="onSubmitLink($event)"><p>→</p></button>
     </div>
     <div *ngIf="selectedTool === 'converter'" class="input-group">
-      <input type="file" class="form-control" aria-label="Upload file">
-      <button class="btn btn-primary" type="button">Upload</button>
+      <input type="file" class="form-controls file-input" aria-label="Upload file">
+      <button class="btn" type="button"><p>→</p></button>
     </div>
     <div *ngIf="selectedTool === 'pdf'" class="input-group">
-      <select class="form-select" aria-label="Select PDF tool">
+      <select class="form-select" aria-label="Select PDF tool" >
         <option *ngFor="let tool of tools" [value]="tool">{{ tool }}</option>
       </select>
-      <button class="btn btn-primary" type="button">Apply</button>
+      <button class="btn " type="button"><p>→</p></button>
     </div>
   </div>
   <div class="mt-5" id="faqs">
-    <h2 class="text-white">FAQs</h2>
-    <div class="faq-item mt-4">
-      <h3 class="text-white fw-bold">Is YTube free?</h3>
-      <p class="text-white border p-3 mt-2">Completely free! You can download any videos, audio, or photos without registering, logging in to your account, or paying for downloads.</p>
-    </div>
-    <div class="faq-item mt-4">
-      <h3 class="text-white fw-bold">Where is my videos stored after downloading?</h3>
-      <p class="text-white border p-3 mt-2">Videos are usually stored in the "Downloads" folder on Android, PC, and Photos App on iOS.</p>
-    </div>
-    <div class="faq-item mt-4">
-      <h3 class="text-white fw-bold">Does YTube store downloaded assets?</h3>
-      <p class="text-white border p-3 mt-2">No! YTube does not store any videos, audio, photos, or download history on its server. We provide privacy for our users.</p>
-    </div>
-    <div class="faq-item mt-4">
-      <h3 class="text-white fw-bold">Can I use YTube on PC or mobile?</h3>
-      <p class="text-white border p-3 mt-2">Yes, it can be accessed from any computer or mobile device with an internet connection. Simply go to YTube.com in your browser.</p>
-    </div>
-    <div class="faq-item mt-4">
-      <h3 class="text-white fw-bold">Is there a limit on the number of videos that can be downloaded?</h3>
-      <p class="text-white border p-3 mt-2">No! You can download as many videos as you wish using YTube.com.</p>
-    </div>
-    <div class="faq-item mt-4">
-      <h3 class="text-white fw-bold">How to download videos online?</h3>
-      <p class="text-white border p-3 mt-2">Snapping 1, 2, 3:<br>1. Copy an video URL from any website you want.<br>2. Go back to YTube.com and paste it into the field, and press Download.<br>3. Shortly, you will see the results, pick the quality you need, and download.</p>
+    <h2 class="text-white mb-4">FAQs</h2>
+    <div class="accordion" id="faqAccordion">
+  
+      <!-- Accordion Item Template -->
+      <div class="accordion-item custom-accordion">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+            Is YTube free?
+          </button>
+        </h2>
+        <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Completely free! You can download any videos, audio, or photos without registering, logging in to your account, or paying for downloads.
+          </div>
+        </div>
+      </div>
+  
+      <div class="accordion-item custom-accordion">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+            Where is my video stored after downloading?
+          </button>
+        </h2>
+        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Videos are usually stored in the "Downloads" folder on Android, PC, and Photos App on iOS.
+          </div>
+        </div>
+      </div>
+  
+      <div class="accordion-item custom-accordion">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+            Does YTube store downloaded assets?
+          </button>
+        </h2>
+        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            No! YTube does not store any videos, audio, photos, or download history on its server. We provide privacy for our users.
+          </div>
+        </div>
+      </div>
+  
+      <div class="accordion-item custom-accordion">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+            Can I use YTube on PC or mobile?
+          </button>
+        </h2>
+        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Yes, it can be accessed from any computer or mobile device with an internet connection. Simply go to YTube.com in your browser.
+          </div>
+        </div>
+      </div>
+  
+      <div class="accordion-item custom-accordion">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+            Is there a limit on the number of videos that can be downloaded?
+          </button>
+        </h2>
+        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            No! You can download as many videos as you wish using YTube.com.
+          </div>
+        </div>
+      </div>
+  
+      <div class="accordion-item custom-accordion">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+            How to download videos online?
+          </button>
+        </h2>
+        <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Snapping 1, 2, 3:<br>
+            1. Copy a video URL from any website you want.<br>
+            2. Go back to YTube.com and paste it into the field, and press Download.<br>
+            3. Shortly, you will see the results, pick the quality you need, and download.
+          </div>
+        </div>
+      </div>
+  
     </div>
   </div>
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <p><i class="fas fa-download" style="color: #27ae60;"></i> YTube</p>
-          <p class="mb-0">Online video downloader service which helps you to download videos, photos and audio from the most popular social media.</p>
-        </div>
-        <div class="col-md-4">
-          <h5>Legal</h5>
-          <p><a href="#" class="text-white">Privacy Policy</a></p>
-          <p><a href="#" class="text-white">Terms and Conditions</a></p>
-          <p><a href="#" class="text-white">Disclaimer</a></p>
-        </div>
-        <div class="col-md-4">
-          <h5>Company</h5>
-          <p><a href="#" class="text-white">Blog</a></p>
-          <p><a href="#" class="text-white">About</a></p>
-          <p><a href="#" class="text-white">Contact</a></p>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-12 text-center">
-          <a href="#" class="text-white me-3"><i class="fab fa-x-twitter" style="font-size: 1.2rem;"></i></a>
-          <a href="#" class="text-white me-3"><i class="fab fa-facebook-f" style="font-size: 1.2rem;"></i></a>
-          <a href="#" class="text-white me-3"><i class="fab fa-instagram" style="font-size: 1.2rem;"></i></a>
-          <p class="mt-2 mb-0 text-white">© 2025 YTube. All Rights Reserved.</p>
-          <p class="text-white">Disclaimer: All site names, logos, and trademarks are property of their respective owners and used on this site for identification purposes only. This website does not host any pirated or copyright content on its server, and all the videos that you download are downloaded to your system directly from their respective CDN servers.</p>
-        </div>
-      </div>
-    </div>
-  </footer>
+  
+  
+ 
   <div *ngIf="showPopup" class="popup-overlay" (click)="showPopup = false">
     <div class="popup-content" (click)="$event.stopPropagation()">
       <img src="{{ thumbnailUrl }}" alt="Video Thumbnail" style="width: 100%; border-radius: 5px;">
@@ -132,3 +177,34 @@
     </div>
   </div>
 </div>
+<footer class="container-fluid">
+  <div >
+    <div class="row">
+      <div class="col-md-4">
+        <p><i class="fas fa-download" style="color: #27ae60;"></i> YTube</p>
+        <p class="mb-0">Online video downloader service which helps you to download videos, photos and audio from the most popular social media.</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Legal</h5>
+        <p><a href="#" class="text-white">Privacy Policy</a></p>
+        <p><a href="#" class="text-white">Terms and Conditions</a></p>
+        <p><a href="#" class="text-white">Disclaimer</a></p>
+      </div>
+      <div class="col-md-4">
+        <h5>Company</h5>
+        <p><a href="#" class="text-white">Blog</a></p>
+        <p><a href="#" class="text-white">About</a></p>
+        <p><a href="#" class="text-white">Contact</a></p>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12 text-center">
+        <a href="#" class="text-white me-3"><i class="fab fa-x-twitter" style="font-size: 1.2rem;"></i></a>
+        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f" style="font-size: 1.2rem;"></i></a>
+        <a href="#" class="text-white me-3"><i class="fab fa-instagram" style="font-size: 1.2rem;"></i></a>
+        <p class="mt-2 mb-0 text-white">© 2025 YTube. All Rights Reserved.</p>
+        <p class="text-white">Disclaimer: All site names, logos, and trademarks are property of their respective owners and used on this site for identification purposes only. This website does not host any pirated or copyright content on its server, and all the videos that you download are downloaded to your system directly from their respective CDN servers.</p>
+      </div>
+    </div>
+  </div>
+</footer>
