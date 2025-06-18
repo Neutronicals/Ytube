@@ -55,6 +55,6 @@ async def download_video(url: str = Query(...), format_id: str = Query("best")):
         except Exception as e:
             return JSONResponse(status_code=400, content={"error": str(e)})
           
-  @app.get("/")
+@app.get("/")
 async def root():
     return {"message": "YTube backend is running!"}
