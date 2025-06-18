@@ -12,7 +12,7 @@ export class YoutubeDownloader {
   youtubeUrl: string = '';
   info: any = null;
   selectedFormat: string = '';
-  apiBase = 'http://localhost:8000/api'; // Change if deploying elsewhere
+  apiBase = 'https://ytube-90a5.onrender.com'; // Change if deploying elsewhere
 
   constructor(private http: HttpClient) {}
 
