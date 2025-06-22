@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms'; // ✅ Add this import
 
 import { YoutubeDownloader } from './youtube-downloader';
 
@@ -8,9 +9,11 @@ describe('YoutubeDownloader', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [YoutubeDownloader]
-    })
-    .compileComponents();
+      imports: [
+        YoutubeDownloader,
+        FormsModule // ✅ Add FormsModule here for ngModel
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(YoutubeDownloader);
     component = fixture.componentInstance;

@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common'; // ✅ Add this line
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-youtube-downloader',
   templateUrl: './youtube-downloader.html',
   styleUrl: './youtube-downloader.css',
   standalone: true,
-  imports: []
+  imports: [CommonModule, FormsModule]
 })
 export class YoutubeDownloader {
   youtubeUrl: string = '';
