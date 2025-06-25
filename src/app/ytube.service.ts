@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class YtubeService {
   // Change the URL below to your Render backend URL (no trailing slash)
-  backendUrl = 'https://YOUR_RENDER_URL.onrender.com';
+  backendUrl = 'https://ytube-90a5.onrender.com';
 
   constructor(private http: HttpClient) {}
 
