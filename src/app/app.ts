@@ -1,22 +1,24 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { YtubeService } from './ytube.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './app.html',
-  // Remove styleUrl: './styles.css' since it's now global
 })
 export class App {
   selectedTool: string | null = null;
-  tools = ['Merge', 'Split', 'Compress', 'Rotate', 'Extract'];
   youtubeLink: string = '';
   showPopup: boolean = false;
-  videoTitle: string = 'Sample Video';
-  thumbnailUrl: string = 'https://via.placeholder.com/120x90';
-  qualities: string[] = ['1080p', '720p', '480p', '360p', '240p', 'MP3'];
+  videoInfo: any = null;
+  qualities: any[] = [];
+  chosenQuality: string = 'best';
+  downloadError: string = '';
+
+  constructor(private ytube: YtubeService) {}
 
   selectTool(tool: string) {
     this.selectedTool = this.selectedTool === tool ? null : tool;
@@ -26,6 +28,36 @@ export class App {
     if (this.selectedTool === 'youtube' && this.youtubeLink) {
       event.preventDefault();
       this.showPopup = true;
+      this.downloadError = '';
+      this.ytube.getVideoInfo(this.youtubeLink).subscribe({
+        next: (info) => {
+          this.videoInfo = info;
+          this.qualities = info.formats || [];
+        },
+        error: (err) => {
+          this.downloadError = 'Failed to fetch video info.';
+        }
+      });
     }
+  }
+
+  onDownload() {
+    if (!this.youtubeLink) return;
+    this.downloadError = '';
+    this.ytube.downloadVideo(this.youtubeLink, this.chosenQuality).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = (this.videoInfo?.title || 'video') + '.mp4';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      },
+      error: (err) => {
+        this.downloadError = 'Download failed.';
+      }
+    });
   }
 }
