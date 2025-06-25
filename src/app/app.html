@@ -176,6 +176,21 @@
   
     </div>
   </div>
+
+  <div *ngIf="showPopup && selectedTool === 'youtube'">
+  <div *ngIf="videoInfo">
+    <h3>{{ videoInfo.title }}</h3>
+    <img [src]="videoInfo.thumbnail" alt="Thumbnail" width="120">
+    <select [(ngModel)]="chosenQuality">
+      <option value="best">Best</option>
+      <option *ngFor="let fmt of qualities" [value]="fmt.format_id">
+        {{ fmt.format_note || fmt.format_id }} ({{ fmt.ext }})
+      </option>
+    </select>
+    <button (click)="onDownload()">Download</button>
+  </div>
+  <div *ngIf="downloadError" style="color:red;">{{ downloadError }}</div>
+</div>
   
   
  
