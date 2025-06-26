@@ -5,13 +5,6 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import uuid
 
-ydl_opts = {
-    "format": format_id,
-    "outtmpl": output_path,
-    "quiet": True,
-    "cookiefile": "cookies.txt",  # Add this line
-}
-
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -24,6 +17,8 @@ app.add_middleware(
 DOWNLOAD_DIR = "downloads"
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
+COOKIES_FILE = os.path.join(os.path.dirname(__file__), "cookies.txt")  # Path to cookies.txt
+
 @app.get("/api/info")
 async def get_video_info(url: str = Query(...)):
     ydl_opts = {
@@ -32,6 +27,7 @@ async def get_video_info(url: str = Query(...)):
         "simulate": True,
         "forcejson": True,
         "dump_single_json": True,
+        "cookiefile": COOKIES_FILE if os.path.exists(COOKIES_FILE) else None,  # Only add if file exists
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         try:
@@ -48,6 +44,7 @@ async def download_video(url: str = Query(...), format_id: str = Query("best")):
         "format": format_id,
         "outtmpl": output_path,
         "quiet": True,
+        "cookiefile": COOKIES_FILE if os.path.exists(COOKIES_FILE) else None,  # Only add if file exists
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         try:
@@ -61,7 +58,7 @@ async def download_video(url: str = Query(...), format_id: str = Query("best")):
             )
         except Exception as e:
             return JSONResponse(status_code=400, content={"error": str(e)})
-          
+
 @app.get("/")
 async def root():
     return {"message": "YTube backend is running!"}
