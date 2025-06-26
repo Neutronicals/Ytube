@@ -5,6 +5,13 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import uuid
 
+ydl_opts = {
+    "format": format_id,
+    "outtmpl": output_path,
+    "quiet": True,
+    "cookiefile": "cookies.txt",  # Add this line
+}
+
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
